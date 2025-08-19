@@ -6,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>SQUARDO FANTASTICA</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="style.css" /></head>
+  <link rel="stylesheet" href="style.css" />
+</head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col">
 
@@ -29,23 +30,23 @@
         <h3 class="text-xl font-semibold mb-1 text-gray-900">M.hafizul Fahmi</h3>
         <p class="text-sm text-gray-600">Hobi: Bermain Gitar</p>
         <q class="mt-3 text-gray-700 italic">"Terus lah belajar untuk lebih mengenal hal baru."</q>
-        <button class="btn-shoot mt-6" aria-label="Shoot basketball" type="button"
-          onclick="showShootMessage('M.hafizul Fahmi' )" id="music1">Mainkan Music</button>
-       </article>
+        <button class="btn-shoot mt-6" aria-label="Play music" type="button"
+          onclick="playMusic('hafiz')">🎵 Mainkan Music</button>
+      </article>
 
       <!-- Member Card 2 -->
       <article
         class="bg-basket-light rounded-xl p-6 relative flex flex-col items-center text-center shadow-lg border-2 border-basket-orange hover:shadow-2xl cursor-pointer"
         >
         <div class="relative mb-4">
-          <img class="basket-img" src="img/adit.jpeg" alt=asketball player shooting ball gracefully towards basket, court background />
+          <img class="basket-img" src="img/adit.jpeg" alt="basketball player shooting ball gracefully towards basket, court background" />
           <div class="basketball-icon" aria-hidden="true"></div>
         </div>
         <h3 class="text-xl font-semibold mb-1 text-gray-900">Risky Aditya</h3>
         <p class="text-sm text-gray-600">Hobi: Bermain Basket</p>
         <q class="mt-3 text-gray-700 italic">"Kamu tidak harus tinggi untuk bermain basket."</q>
-        <button class="btn-shoot mt-6" aria-label="Shoot basketball" type="button"
-          onclick="showShootMessage2('Risky Aditya')">Tembakan Bola</button>
+        <button class="btn-shoot mt-6" aria-label="Play music" type="button"
+          onclick="playMusic('adit')">🏀 Tembakan Bola</button>
       </article>
 
       <!-- Member Card 3 -->
@@ -59,16 +60,17 @@
         <h3 class="text-xl font-semibold mb-1 text-gray-900">Ahmad Saufi Ridhoni</h3>
         <p class="text-sm text-gray-600">Hobi: Memancing</p>
         <q class="mt-3 text-gray-700 italic">"Kadang yang kutangkap bukan ikan, tapi ketenangan yang selama ini hilang"</q>
-        <button class="btn-shoot mt-6" aria-label="Shoot basketball" type="button"
-          onclick="showShootMessage1('Ahmad Saufi Ridhoni')">Tarik Rell</button>
+        <button class="btn-shoot mt-6" aria-label="Play music" type="button"
+          onclick="playMusic('saufi')">🎣 Tarik Rell</button>
       </article>
     </section>
   </main>
 
   <footer class="bg-gray-800 text-gray-100 text-center py-4 text-sm select-none">
-    ©Copyright XII TJKT 1 SMKN 1 Amuntai
+    ©Copyright XII TJKT 1 Amuntai
+  </footer>
 
-    <!-- Audio Elements -->
+  <!-- Audio Elements -->
   <audio id="audioHafiz" loop>
     <source src="musik/gitar.mp3" type="audio/mpeg">
     Browser Anda tidak support audio element.
@@ -83,98 +85,105 @@
     <source src="musik/mancing.mp3" type="audio/mpeg">
     Browser Anda tidak support audio element.
   </audio>
-  </footer>
 
   <script>
-
-       let currentAudio = null;
+    let currentAudio = null;
     let currentButton = null;
+    let currentMember = null;
 
-    function showShootMessage(member, name, backgroundImage) {
+    function playMusic(member) {
       // Stop current music if playing
       if (currentAudio) {
         currentAudio.pause();
         currentAudio.currentTime = 0;
         if (currentButton) {
-          currentButton.textContent = currentButton.textContent.replace('⏸️', '🎵');
+          resetButtonText(currentButton, currentMember);
         }
       }
 
-      // Get audio element based on member
+      // Get audio element and button based on member
       let audio;
       let button = event.target;
+      let backgroundImage;
+      let memberName;
       
       switch(member) {
-        case 'M.hafizul Fahmi':
+        case 'hafiz':
           audio = document.getElementById('audioHafiz');
+          backgroundImage = 'img/gitar.jpg';
+          memberName = 'M.hafizul Fahmi';
           break;
         case 'adit':
           audio = document.getElementById('audioAdit');
+          backgroundImage = 'img/bas.jpg';
+          memberName = 'Risky Aditya';
           break;
         case 'saufi':
           audio = document.getElementById('audioSaufi');
+          backgroundImage = 'img/waa.jpeg';
+          memberName = 'Ahmad Saufi Ridhoni';
+          break;
+      }
+
+      // Change background
+      document.body.style.background = `url('${backgroundImage}')`;
+      document.body.style.backgroundAttachment = 'fixed';
+      document.body.style.backgroundRepeat = 'no-repeat';
+      document.body.style.backgroundSize = 'cover';
+
+      // Check if this is the same button that's already playing
+      if (currentAudio === audio && !audio.paused) {
+        // Pause the music
+        audio.pause();
+        resetButtonText(button, member);
+        currentAudio = null;
+        currentButton = null;
+        currentMember = null;
+      } else {
+        // Play new music
+        audio.play().then(() => {
+          currentAudio = audio;
+          currentButton = button;
+          currentMember = member;
+          
+          // Update button text
+          updateButtonText(button, member);
+          
+          alert(`${memberName}: Music dimulai, siapkan telinga untuk irama yang memukau!`);
+        }).catch(error => {
+          console.log('Error playing audio:', error);
+          alert('File musik tidak ditemukan. Pastikan folder "musik" berisi file audio yang sesuai.');
+        });
+      }
+    }
+
+    function updateButtonText(button, member) {
+      switch(member) {
+        case 'hafiz':
+          button.textContent = '⏸️ Stop Music';
+          break;
+        case 'adit':
+          button.textContent = '⏸️ Stop Basket';
+          break;
+        case 'saufi':
+          button.textContent = '⏸️ Stop Mancing';
           break;
       }
     }
 
-    // Prevent event bubbling when clicking on button inside card
-    function showShootMessage(name)  {
-        let body = document.body.style.background = 'url("/img/gitar.jpg")'
-        document.body.style.backgroundAttachment = 'fixed'
-        document.body.style.backgroundRepeat = 'no-repeat'
-        document.body.style.backgroundSize = 'cover'
-        alert(name + ": Music dimulai,bersiaplah untuk mendengar iramanya");
-
-    }
-
-    function showShootMessage1(name) {
-        let body = document.body.style.background = 'url("/img/waa.jpeg")'
-        document.body.style.backgroundAttachment = 'fixed'
-        document.body.style.backgroundRepeat = 'no-repeat'
-        document.body.style.backgroundSize = 'cover'
-        alert(name + ": Mancing Mania Mantap, Sisit Bagamat STREAKKKK BOSQUU");
-    }
-
-    function showShootMessage2(name) {
-        let body = document.body.style.background = 'url("/img/bas.jpg")'
-        document.body.style.backgroundAttachment = 'fixed'
-        document.body.style.backgroundRepeat = 'no-repeat'
-        document.body.style.backgroundSize = 'cover'
-        alert(name + ": Shoot for the win, not just the rim.");
-    }
-
-      function changeBackground(imagePath) {
-      document.getElementById('background').style.backgroundImage = `url('${imagePath}')`;
-      document.getElementById('background').style.backgroundSize = 'cover';
-      document.getElementById('background').style.backgroundPosition = 'center';
-    }
-
-    // Play music
-      audio.play().then(() => {
-        currentAudio = audio;
-        currentButton = button;
-        button.textContent = button.textContent.replace('🎵', '⏸️').replace('🏀', '⏸️').replace('🎣', '⏸️');
-        alert(`${name}: Music dimulai, siapkan telinga untuk irama yang memukau!`);
-      }).catch(error => {
-        console.log('Error playing audio:', error);
-        alert('File musik tidak ditemukan. Pastikan folder "musik" berisi file audio yang sesuai.');
-      });
-
-      // Toggle pause/play on same button
-      button.onclick = function() {
-        if (audio.paused) {
-          audio.play();
-          button.textContent = button.textContent.replace('🎵', '⏸️').replace('🏀', '⏸️').replace('🎣', '⏸️');
-        } else {
-          audio.pause();
-          button.textContent = button.textContent.replace('⏸️', '🎵').replace('⏸️', '🏀').replace('⏸️', '🎣');
-        }
-
+    function resetButtonText(button, member) {
+      switch(member) {
+        case 'hafiz':
+          button.textContent = '🎵 Mainkan Music';
+          break;
+        case 'adit':
+          button.textContent = '🏀 Tembakan Bola';
+          break;
+        case 'saufi':
+          button.textContent = '🎣 Tarik Rell';
+          break;
       }
-
+    }
   </script>
 </body>
-
 </html>
-
-
