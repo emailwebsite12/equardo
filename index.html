@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SQUARDO FANTASTICA</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="style.css" /></head>
+
+<body class="bg-gray-50 min-h-screen flex flex-col">
+
+  <!-- Header -->
+  <header class="bg-basket-orange text-white font-bold text-3xl text-center py-5 shadow-md">
+    SQUARDO FANTASTICA
+  </header>
+
+  <main class="container mx-auto flex flex-col items-center flex-grow px-4 py-8">
+    <section class="grid grid-cols-1 sm:grid-cols-3 gap-12 max-w-6xl w-full">
+
+      <!-- Member Card 1 -->
+      <article
+        class="bg-basket-light rounded-xl p-6 relative flex flex-col items-center text-center shadow-lg hover:shadow-xl transition-shadow duration-300 cursor-pointer"
+        >
+        <div class="relative mb-4">
+          <img class="basket-img" src="img/fahmi.jpeg" alt="fahmi" />
+          <div class="basketball-icon" aria-hidden="true"></div>
+        </div>
+        <h3 class="text-xl font-semibold mb-1 text-gray-900">M.hafizul Fahmi</h3>
+        <p class="text-sm text-gray-600">Hobi: Bermain Gitar</p>
+        <q class="mt-3 text-gray-700 italic">"Terus lah belajar untuk lebih mengenal hal baru."</q>
+        <button class="btn-shoot mt-6" aria-label="Shoot basketball" type="button"
+          onclick="showShootMessage('M.hafizul Fahmi' )" id="music1">Mainkan Music</button>
+       </article>
+
+      <!-- Member Card 2 -->
+      <article
+        class="bg-basket-light rounded-xl p-6 relative flex flex-col items-center text-center shadow-lg border-2 border-basket-orange hover:shadow-2xl cursor-pointer"
+        >
+        <div class="relative mb-4">
+          <img class="basket-img" src="img/adit.jpeg" alt=asketball player shooting ball gracefully towards basket, court background />
+          <div class="basketball-icon" aria-hidden="true"></div>
+        </div>
+        <h3 class="text-xl font-semibold mb-1 text-gray-900">Risky Aditya</h3>
+        <p class="text-sm text-gray-600">Hobi: Bermain Basket</p>
+        <q class="mt-3 text-gray-700 italic">"Kamu tidak harus tinggi untuk bermain basket."</q>
+        <button class="btn-shoot mt-6" aria-label="Shoot basketball" type="button"
+          onclick="showShootMessage2('Risky Aditya')">Tembakan Bola</button>
+      </article>
+
+      <!-- Member Card 3 -->
+      <article
+        class="bg-orange-100 rounded-xl p-6 relative flex flex-col items-center text-center shadow-lg cursor-pointer"
+        >
+        <div class="relative mb-4">
+          <img class="basket-img" src="img/saufi (1).jpeg" alt="Male basketball player dunking the ball on hoop, dynamic pose with crowd silhouette" />
+          <div class="basketball-icon" aria-hidden="true"></div>
+        </div>
+        <h3 class="text-xl font-semibold mb-1 text-gray-900">Ahmad Saufi Ridhoni</h3>
+        <p class="text-sm text-gray-600">Hobi: Memancing</p>
+        <q class="mt-3 text-gray-700 italic">"Kadang yang kutangkap bukan ikan, tapi ketenangan yang selama ini hilang"</q>
+        <button class="btn-shoot mt-6" aria-label="Shoot basketball" type="button"
+          onclick="showShootMessage1('Ahmad Saufi Ridhoni')">Tarik Rell</button>
+      </article>
+    </section>
+  </main>
+
+  <footer class="bg-gray-800 text-gray-100 text-center py-4 text-sm select-none">
+    ©Copyright 2025
+
+    <!-- Audio Elements -->
+  <audio id="audioHafiz" loop>
+    <source src="musik/gitar.mp3" type="audio/mpeg">
+    Browser Anda tidak support audio element.
+  </audio>
+  
+  <audio id="audioAdit" loop>
+    <source src="musik/basket.mp3" type="audio/mpeg">
+    Browser Anda tidak support audio element.
+  </audio>
+  
+  <audio id="audioSaufi" loop>
+    <source src="musik/mancing.mp3" type="audio/mpeg">
+    Browser Anda tidak support audio element.
+  </audio>
+  </footer>
+
+  <script>
+
+       let currentAudio = null;
+    let currentButton = null;
+
+    function showShootMessage(member, name, backgroundImage) {
+      // Stop current music if playing
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        if (currentButton) {
+          currentButton.textContent = currentButton.textContent.replace('⏸️', '🎵');
+        }
+      }
+
+      // Get audio element based on member
+      let audio;
+      let button = event.target;
+      
+      switch(member) {
+        case 'M.hafizul Fahmi':
+          audio = document.getElementById('audioHafiz');
+          break;
+        case 'adit':
+          audio = document.getElementById('audioAdit');
+          break;
+        case 'saufi':
+          audio = document.getElementById('audioSaufi');
+          break;
+      }
+    }
+
+    // Prevent event bubbling when clicking on button inside card
+    function showShootMessage(name)  {
+        let body = document.body.style.background = 'url("/img/gitar.jpg")'
+        document.body.style.backgroundAttachment = 'fixed'
+        document.body.style.backgroundRepeat = 'no-repeat'
+        document.body.style.backgroundSize = 'cover'
+        alert(name + ": Music dimulai,bersiaplah untuk mendengar iramanya");
+
+    }
+
+    function showShootMessage1(name) {
+        let body = document.body.style.background = 'url("/img/waa.jpeg")'
+        document.body.style.backgroundAttachment = 'fixed'
+        document.body.style.backgroundRepeat = 'no-repeat'
+        document.body.style.backgroundSize = 'cover'
+        alert(name + ": Mancing Mania Mantap, Sisit Bagamat STREAKKKK BOSQUU");
+    }
+
+    function showShootMessage2(name) {
+        let body = document.body.style.background = 'url("/img/bas.jpg")'
+        document.body.style.backgroundAttachment = 'fixed'
+        document.body.style.backgroundRepeat = 'no-repeat'
+        document.body.style.backgroundSize = 'cover'
+        alert(name + ": Shoot for the win, not just the rim.");
+    }
+
+      function changeBackground(imagePath) {
+      document.getElementById('background').style.backgroundImage = `url('${imagePath}')`;
+      document.getElementById('background').style.backgroundSize = 'cover';
+      document.getElementById('background').style.backgroundPosition = 'center';
+    }
+
+    // Play music
+      audio.play().then(() => {
+        currentAudio = audio;
+        currentButton = button;
+        button.textContent = button.textContent.replace('🎵', '⏸️').replace('🏀', '⏸️').replace('🎣', '⏸️');
+        alert(`${name}: Music dimulai, siapkan telinga untuk irama yang memukau!`);
+      }).catch(error => {
+        console.log('Error playing audio:', error);
+        alert('File musik tidak ditemukan. Pastikan folder "musik" berisi file audio yang sesuai.');
+      });
+
+      // Toggle pause/play on same button
+      button.onclick = function() {
+        if (audio.paused) {
+          audio.play();
+          button.textContent = button.textContent.replace('🎵', '⏸️').replace('🏀', '⏸️').replace('🎣', '⏸️');
+        } else {
+          audio.pause();
+          button.textContent = button.textContent.replace('⏸️', '🎵').replace('⏸️', '🏀').replace('⏸️', '🎣');
+        }
+
+      }
+
+  </script>
+</body>
+
+</html>
+

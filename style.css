@@ -1,0 +1,109 @@
+   /* Custom basket theme colors */
+    .bg-basket-orange {
+      background-color: #d35400; /* burnt orange, basketball leather color */
+    }
+
+    .bg-basket-light {
+      background-color: #fdf1e7; /* soft cream for cards */
+    }
+
+body {
+ background-repeat: no-repeat;
+ background-attachment: fixed;
+background-size: cover;
+ transition: all 0.3s ease;
+}
+
+    .three-d-text {
+    font-size: 50px;
+    color: #f1cc27; /* Main color */
+    text-shadow: 
+        1px 1px 0 #fff, 
+        2px 2px 0 #fff, 
+        3px 3px 0 #fff,  
+        4px 4px 0 #fff; /* Creates depth */
+    font-weight: bold; 
+}
+
+
+    .border-basket-orange {
+      border-color: #d35400;
+    }
+
+    .text-basket-orange {
+      color: #d35400;
+    }
+
+    /* Circular images with basketball net shadow */
+    .basket-img {
+      border-radius: 50%;
+      border: 4px solid #d35400;
+      box-shadow: 0 0 12px 2px #e67e22;
+      width: 120px;
+      height: 120px;
+      object-fit: cover;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      background: radial-gradient(circle at 50% 50%, #f39c12 40%, #e67e22 41%, #e67e22 60%, #d35400 61%);
+      position: relative;
+    }
+
+    .basket-img:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 15px 4px #f39c12;
+    }
+
+    /* Basketball ball icon in cards */
+    .basketball-icon {
+      width: 40px;
+      height: 40px;
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      background: #d35400;
+      border-radius: 50%;
+      box-shadow: inset 5px 0 8px #e67e22, inset -5px 0 8px #e67e22;
+      border: 2px solid #f39c12;
+    }
+
+    .basketball-icon::before,
+    .basketball-icon::after {
+      content: "";
+      position: absolute;
+      background-color: #f39c12;
+      border-radius: 50%;
+    }
+
+    .basketball-icon::before {
+      width: 4px;
+      height: 28px;
+      left: 50%;
+      top: 6px;
+      transform: translateX(-50%);
+    }
+
+    .basketball-icon::after {
+      width: 28px;
+      height: 4px;
+      top: 50%;
+      left: 6px;
+      transform: translateY(-50%);
+    }
+
+    /* Button style for shoot */
+    .btn-shoot {
+      background-color: #d35400;
+      color: white;
+      padding: 10px 20px;
+      font-weight: 600;
+      border-radius: 30px;
+      box-shadow: 0 4px 8px #e67e22;
+      transition: all 0.3s ease;
+    }
+
+    .btn-shoot:hover {
+      background-color: #e67e22;
+      box-shadow: 0 6px 12px #f39c12;
+      transform: translateY(-3px);
+    }
+    
